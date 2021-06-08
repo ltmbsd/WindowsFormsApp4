@@ -239,28 +239,6 @@ namespace WindowsFormsApp4
             else textBox4.Text = "";
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton1.Checked == true)
-            {
-                panel1.Visible = true;
-                panel2.Visible = false;
-                panel3.Visible = false;
-                panel4.Visible = false;
-            }
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton2.Checked == true)
-            {
-                panel1.Visible = false;
-                panel2.Visible = true;
-                panel3.Visible = false;
-                panel4.Visible = false;
-            }
-        }
-
         private void Maxmin(double [] numsfixed)
         {
             Array.Sort(numsfixed);
@@ -584,6 +562,164 @@ namespace WindowsFormsApp4
         private void button3_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog qq = new OpenFileDialog();
+            qq.Filter = "csv|*.csv";
+            if (qq.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader reader = new StreamReader(qq.FileName, System.Text.Encoding.Default))
+                {
+                    textBox4.Text = "";
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Columns.Clear();
+                    int max = 0, count = 0;
+                    double summ = 0;
+                    string[] line1 = File.ReadAllLines(qq.FileName);
+                    for (int i = 0; i < line1.Length; i++)
+                    {
+                        string[] line = line1[i].Split(';');
+                        if (line.Length > max)
+                            max = line.Length;
+                    }
+                    for (int i = 0; i < max - 1; i++)
+                        dataGridView1.Columns.Add("", "");
+                    for (int i = 1; i < line1.Length; i++)
+                    {
+                        dataGridView1.Rows.Add();
+                    }
+
+                    for (int i = 0; i < line1.Length; i++)
+                    {
+                        string[] line = line1[i].Split(';');
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            try
+                            {
+                                dataGridView1.Rows[i].Cells[j].Value = Convert.ToDouble(line[j].Replace(".", ","));
+                                summ += Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
+                                count++;
+                            }
+                            catch { }
+                        }
+
+                    }
+                    if (count > 0)
+                    {
+                        Genm(count, summ);
+                        Moda();
+                        Mediana();
+                    }
+                }
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog qq = new SaveFileDialog();
+            qq.Filter = "docx|*.docx";
+            if (qq.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bmp1 = new Bitmap(cartesianChart2.Width, cartesianChart2.Height);
+                cartesianChart2.DrawToBitmap(bmp1, new System.Drawing.Rectangle(0, 0, bmp1.Width, bmp1.Height));
+                Bitmap bmp2 = new Bitmap(cartesianChart1.Width, cartesianChart1.Height);
+                cartesianChart1.DrawToBitmap(bmp2, new System.Drawing.Rectangle(0, 0, bmp2.Width, bmp2.Height));
+
+                Microsoft.Office.Interop.Word._Application oWord = new Microsoft.Office.Interop.Word.Application();
+
+                var oDoc = oWord.Documents.Add();
+
+                //Insert a paragraph at the beginning of the document.
+                oDoc.Content.Paragraphs.Add();
+                oDoc.Content.Paragraphs.Add();
+                oDoc.Content.Paragraphs.Add();
+                oDoc.Content.Paragraphs.Add();
+
+                var cb = System.Windows.Forms.Clipboard.GetDataObject();
+
+                System.Windows.Forms.Clipboard.SetImage(bmp1);
+                oDoc.Paragraphs[1].Range.Paste();
+
+                System.Windows.Forms.Clipboard.SetImage(bmp2);
+                oDoc.Paragraphs[2].Range.Paste();
+
+                System.Windows.Forms.Clipboard.SetDataObject(cb);
+
+                oDoc.Paragraphs[3].Range.Text = "Генеральная средняя: " + textBox1.Text + "\n" +
+                                                "Мода: " + textBox2.Text + "\n" +
+                                                "Медиана: " + textBox3.Text + "\n" +
+                                                "Максимальное: " + textBox5.Text + "\n" +
+                                                "Минимальное: " + textBox6.Text + "\n" +
+                                                "Количество интервалов: " + textBox7.Text + "\n" +
+                                                "Длина интервала: " + textBox8.Text + "\n" +
+                                                "Размах: " + textBox10.Text + "\n" +
+                                                "Среднее линейное отклонение: " + textBox9.Text + "\n" +
+                                                "Дисперсия: " + textBox11.Text + "\n" +
+                                                "Среднее квадратическое отклонение: " + textBox12.Text + "\n" +
+                                                "Коэффицент вариаций: " + textBox13.Text + "\n" +
+                                                "Коэффицент асимметрии: " + textBox14.Text + "\n" +
+                                                "Существенность асимметрии: " + textBox15.Text + "\n" +
+                                                "Эксцесс: " + textBox17.Text + "\n" +
+                                                "Существенность эксцесса: " + textBox16.Text + "\n\n" +
+                                                label19.Text + "\n" +
+                                                label20.Text + "\n" +
+                                                label21.Text + "\n" +
+                                                label22.Text + "\n";
+
+                oDoc.SaveAs2(qq.FileName);
+
+                oWord.Quit();
+            }
+        }
+
+        private void построениеВариационногоРядаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            построениеВариационногоРядаToolStripMenuItem.Checked = true;
+            рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Checked = false;
+            расчетПоказателейВариацииToolStripMenuItem.Checked = false;
+            анализНаСимметриюИЭксцессToolStripMenuItem.Checked = false;
+            panel1.Visible = true;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+        }
+
+        private void рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            построениеВариационногоРядаToolStripMenuItem.Checked = false;
+            рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Checked = true;
+            расчетПоказателейВариацииToolStripMenuItem.Checked = false;
+            анализНаСимметриюИЭксцессToolStripMenuItem.Checked = false;
+            panel1.Visible = false;
+            panel2.Visible = true;
+            panel3.Visible = false;
+            panel4.Visible = false;
+        }
+
+        private void расчетПоказателейВариацииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            построениеВариационногоРядаToolStripMenuItem.Checked = false;
+            рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Checked = false;
+            расчетПоказателейВариацииToolStripMenuItem.Checked = true;
+            анализНаСимметриюИЭксцессToolStripMenuItem.Checked = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = true;                       
+            panel4.Visible = false;
+        }
+
+        private void анализНаСимметриюИЭксцессToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            построениеВариационногоРядаToolStripMenuItem.Checked = false;
+            рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Checked = false;
+            расчетПоказателейВариацииToolStripMenuItem.Checked = false;
+            анализНаСимметриюИЭксцессToolStripMenuItem.Checked = true;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = true;
         }
     }
 }

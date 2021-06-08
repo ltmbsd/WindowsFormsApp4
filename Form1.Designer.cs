@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -42,8 +41,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -55,9 +52,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -69,7 +64,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -84,34 +78,34 @@
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.построениеВариационногоРядаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.расчетПоказателейВариацииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.анализНаСимметриюИЭксцессToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 61);
+            this.dataGridView1.Location = new System.Drawing.Point(11, 26);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(393, 245);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(11, 586);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 24);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Открыть";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -202,7 +196,7 @@
             // 
             // cartesianChart1
             // 
-            this.cartesianChart1.Location = new System.Drawing.Point(886, 322);
+            this.cartesianChart1.Location = new System.Drawing.Point(895, 282);
             this.cartesianChart1.Margin = new System.Windows.Forms.Padding(2);
             this.cartesianChart1.Name = "cartesianChart1";
             this.cartesianChart1.Size = new System.Drawing.Size(464, 243);
@@ -220,36 +214,11 @@
             this.panel2.Controls.Add(this.textBox4);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.button2);
-            this.panel2.Location = new System.Drawing.Point(409, 61);
+            this.panel2.Location = new System.Drawing.Point(409, 26);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(471, 553);
+            this.panel2.Size = new System.Drawing.Size(481, 499);
             this.panel2.TabIndex = 15;
             this.panel2.Visible = false;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(12, 12);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(193, 17);
-            this.radioButton1.TabIndex = 13;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Построение вариационного ряда";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(12, 34);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(513, 17);
-            this.radioButton2.TabIndex = 14;
-            this.radioButton2.Text = "Рассчет показателей центра распределения и структурных характеристик вариационног" +
-    "о ряда";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // textBox5
             // 
@@ -350,40 +319,18 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.textBox6);
             this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Location = new System.Drawing.Point(409, 61);
+            this.panel1.Location = new System.Drawing.Point(409, 26);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(471, 553);
+            this.panel1.Size = new System.Drawing.Size(480, 499);
             this.panel1.TabIndex = 12;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(90, 586);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(74, 24);
-            this.button4.TabIndex = 23;
-            this.button4.Text = "Сохранить";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // cartesianChart2
             // 
-            this.cartesianChart2.Location = new System.Drawing.Point(886, 61);
+            this.cartesianChart2.Location = new System.Drawing.Point(895, 26);
             this.cartesianChart2.Name = "cartesianChart2";
             this.cartesianChart2.Size = new System.Drawing.Size(464, 240);
             this.cartesianChart2.TabIndex = 22;
             this.cartesianChart2.Text = "cartesianChart2";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(643, 12);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(179, 17);
-            this.radioButton3.TabIndex = 16;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Расчет показателей вариации";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // panel3
             // 
@@ -397,9 +344,9 @@
             this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.textBox9);
             this.panel3.Controls.Add(this.label10);
-            this.panel3.Location = new System.Drawing.Point(409, 61);
+            this.panel3.Location = new System.Drawing.Point(409, 26);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(471, 553);
+            this.panel3.Size = new System.Drawing.Size(480, 499);
             this.panel3.TabIndex = 17;
             this.panel3.Visible = false;
             // 
@@ -488,18 +435,6 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "Среднее линейное отклонение";
             // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(643, 34);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(193, 17);
-            this.radioButton4.TabIndex = 18;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Анализ на симметрию и эксцесс";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label22);
@@ -514,9 +449,9 @@
             this.panel4.Controls.Add(this.textBox15);
             this.panel4.Controls.Add(this.textBox14);
             this.panel4.Controls.Add(this.label15);
-            this.panel4.Location = new System.Drawing.Point(409, 61);
+            this.panel4.Location = new System.Drawing.Point(409, 27);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(471, 553);
+            this.panel4.Size = new System.Drawing.Size(481, 498);
             this.panel4.TabIndex = 19;
             this.panel4.Visible = false;
             // 
@@ -630,7 +565,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1283, 591);
+            this.button3.Location = new System.Drawing.Point(1283, 530);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 24;
@@ -638,26 +573,99 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem,
+            this.отображениеToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
+            this.menuStrip1.TabIndex = 25;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.сохранитьToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // отображениеToolStripMenuItem
+            // 
+            this.отображениеToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.построениеВариационногоРядаToolStripMenuItem,
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem,
+            this.расчетПоказателейВариацииToolStripMenuItem,
+            this.анализНаСимметриюИЭксцессToolStripMenuItem});
+            this.отображениеToolStripMenuItem.Name = "отображениеToolStripMenuItem";
+            this.отображениеToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.отображениеToolStripMenuItem.Text = "Отображение";
+            // 
+            // построениеВариационногоРядаToolStripMenuItem
+            // 
+            this.построениеВариационногоРядаToolStripMenuItem.Checked = true;
+            this.построениеВариационногоРядаToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.построениеВариационногоРядаToolStripMenuItem.Name = "построениеВариационногоРядаToolStripMenuItem";
+            this.построениеВариационногоРядаToolStripMenuItem.Size = new System.Drawing.Size(593, 22);
+            this.построениеВариационногоРядаToolStripMenuItem.Text = "Построение вариационного ряда";
+            this.построениеВариационногоРядаToolStripMenuItem.Click += new System.EventHandler(this.построениеВариационногоРядаToolStripMenuItem_Click);
+            // 
+            // рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem
+            // 
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Name = "рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаTo" +
+    "olStripMenuItem";
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Size = new System.Drawing.Size(593, 22);
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Text = "Расчет показателей центра распределения и структурных характеристик вариационного" +
+    " ряда";
+            this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem.Click += new System.EventHandler(this.рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem_Click);
+            // 
+            // расчетПоказателейВариацииToolStripMenuItem
+            // 
+            this.расчетПоказателейВариацииToolStripMenuItem.Name = "расчетПоказателейВариацииToolStripMenuItem";
+            this.расчетПоказателейВариацииToolStripMenuItem.Size = new System.Drawing.Size(593, 22);
+            this.расчетПоказателейВариацииToolStripMenuItem.Text = "Расчет показателей вариации";
+            this.расчетПоказателейВариацииToolStripMenuItem.Click += new System.EventHandler(this.расчетПоказателейВариацииToolStripMenuItem_Click);
+            // 
+            // анализНаСимметриюИЭксцессToolStripMenuItem
+            // 
+            this.анализНаСимметриюИЭксцессToolStripMenuItem.Name = "анализНаСимметриюИЭксцессToolStripMenuItem";
+            this.анализНаСимметриюИЭксцессToolStripMenuItem.Size = new System.Drawing.Size(593, 22);
+            this.анализНаСимметриюИЭксцессToolStripMenuItem.Text = "Анализ на симметрию и эксцесс";
+            this.анализНаСимметриюИЭксцессToolStripMenuItem.Click += new System.EventHandler(this.анализНаСимметриюИЭксцессToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 621);
+            this.ClientSize = new System.Drawing.Size(1370, 564);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.cartesianChart2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Первичный статистический анализ";
@@ -670,6 +678,8 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -678,7 +688,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
@@ -689,8 +698,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
@@ -704,7 +711,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel1;
         private LiveCharts.WinForms.CartesianChart cartesianChart2;
-        private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox9;
@@ -716,7 +722,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
@@ -730,8 +735,17 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отображениеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem построениеВариационногоРядаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem рассчетПоказателейЦентраРаспределенияИСтруктурныхХарактеристикВариационногоРядаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem расчетПоказателейВариацииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem анализНаСимметриюИЭксцессToolStripMenuItem;
+        private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
     }
 }
 
