@@ -69,8 +69,7 @@ namespace WindowsFormsApp4
                     if (count > 0)
                     {
                         Genm(count, summ);
-                        Moda();
-                        Mediana();
+                        TableToArray();
                     }
                 }
             }
@@ -81,10 +80,9 @@ namespace WindowsFormsApp4
             textBox1.Text = Convert.ToString(Math.Round((summ / count), 3));
         }
 
-        private void Moda()
+        private void TableToArray()
         {
-            int count = 0, k = 0, rpeats, maxrepeats = 0;
-            double num = 0;
+            int count = 0, k = 0;
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 for (int j = 0; j < dataGridView1.Columns.Count; j++)
                 {
@@ -104,28 +102,10 @@ namespace WindowsFormsApp4
                         k++;
                     }
                 }
-            for (int i = 0; i < nums.Length; i++)
-            {
-                rpeats = 0;
-                for (int j = i; j < nums.Length; j++)
-                {
-                    if (nums[i] == nums[j])
-                    {
-                        rpeats++;
-                        repeats[i]++;
-                    }
-                }
-                if (rpeats > maxrepeats)
-                {
-                    maxrepeats = rpeats;
-                    num = nums[i];
-                }
-            }
-            textBox2.Text = Convert.ToString(num);
-            Graphic(nums, repeats);
+            DropRepeats(nums, repeats);
         }
 
-        public void Graphic(double[] nums, int[] repeats)
+        public void DropRepeats(double[] nums, int[] repeats)
         {
             int count = nums.Count();
             for (int i = 0; i < repeats.Count(); i++)
@@ -152,30 +132,8 @@ namespace WindowsFormsApp4
                 numsfixed[i] = nums[i];
                 repeatsfixed[i] = repeats[i];
             }
-
-            LiveCharts.SeriesCollection series = new LiveCharts.SeriesCollection();
-            ChartValues<int> rep = new ChartValues<int>();
-            List<string> nms = new List<string>();
-            for (int i = 0; i < count; i++)
-            {
-                rep.Add(repeatsfixed[i]);
-                nms.Add(Convert.ToString(numsfixed[i]));
-            }
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisY.Clear();
-            cartesianChart1.AxisX.Add(new LiveCharts.Wpf.Axis()
-            {
-                Title = "Значения",
-                Labels = nms
-            });
-
-            LineSeries rpts = new LineSeries();
-            rpts.Title = "Повторения";
-            rpts.Values = rep;
-            series.Add(rpts);
-            cartesianChart1.Series = series;
             Maxmin(numsfixed);
-            IntervalsCount(count, numsfixed);
+            IntervalsCount(nums.Length, numsfixed);
         }
 
         private void Maxmin(double[] numsfixed)
@@ -189,7 +147,7 @@ namespace WindowsFormsApp4
         {
             double inter;
             inter = 1 + 3.322 * Math.Log10(count);
-            if ((inter % 1) < 0.5)
+            if ((inter % 1) == 0)
                 textBox7.Text = Convert.ToString(Math.Round(inter, 0));
             else textBox7.Text = Convert.ToString(Math.Round(inter, 0) + 1);
             Interlenght(numsfixed);
@@ -233,28 +191,99 @@ namespace WindowsFormsApp4
             double h = Convert.ToDouble(textBox8.Text);
             string[] intervals = new string[Convert.ToInt32(textBox7.Text)];
             int[] frequency = new int[Convert.ToInt32(textBox7.Text)];
+            double[] intmin = new double[Convert.ToInt32(textBox7.Text)];
             int count;
             for (int i = 0; i < Convert.ToInt32(textBox7.Text); i++)
             {
+                intmin[i] = min;
                 count = 0;
                 richTextBox1.Text += (i + 1) + " интервал(От " + min + " до " + Math.Round(min + h, 2) + "): ";
                 intervals[i] = "От " + min + " до " + Math.Round(min + h, 2);
-                if (i == 0) { richTextBox1.Text += min + "; "; count++; }
                 for (int j = 0; j < allnumssorted.Count(); j++)
                 {
-                    if ((allnumssorted[j] > min) && ((allnumssorted[j]) <= (min + h)))
+                    if (i == 0)
                     {
-                        richTextBox1.Text += allnumssorted[j] + "; ";
-                        count++;
+                        if ((allnumssorted[j] >= min) && (allnumssorted[j] < (min + h)))
+                        {
+                            richTextBox1.Text += allnumssorted[j] + "; ";
+                            count++;
+                        }
                     }
-
+                    else
+                    {
+                        if ((allnumssorted[j] > min) && (allnumssorted[j] <= (min + h)))
+                        {
+                            richTextBox1.Text += allnumssorted[j] + "; ";
+                            count++;
+                        }
+                        else if ((i == Convert.ToInt32(textBox7.Text) - 1) && (j == allnumssorted.Length - 1))
+                        {
+                            richTextBox1.Text += allnumssorted[j] + "; ";
+                            count++;
+                        }
+                    }
                 }
                 min = Math.Round(min + h, 2);
-                richTextBox1.Text += "\nЧастота: " + count;
-                richTextBox1.Text += "\n\n";
+                richTextBox1.Text += "\nЧастота: " + count +
+                                     "\nЧастость: " + Math.Round((double)count / allnumssorted.Length * 100, 2) +
+                                     "%\n\n";
                 frequency[i] = count;
             }
+            Moda(frequency, intmin, h);
             IntervalsGraphic(intervals, frequency, allnumssorted);
+        }
+
+        private void Moda(int[] frequency, double[] intmin, double h)
+        {
+            int i = 0;
+            while (frequency[i] != frequency.Max())
+                i++;
+            if ((i > 0) && (i < frequency.Length - 1))
+            {
+                double result = Math.Round(intmin[i] + ((frequency[i] - frequency[i - 1]) / (frequency[i] - frequency[i - 1] + (frequency[i] - frequency[i + 1])) * h), 2);
+                textBox2.Text = Convert.ToString(result);
+            }
+            else if (i == 0)
+            {
+                double result = Math.Round(intmin[i] + ((frequency[i]) / (frequency[i] + (frequency[i] - frequency[i + 1])) * h), 2);
+                textBox2.Text = Convert.ToString(result);
+            }
+            else
+            {
+                double result = Math.Round(intmin[i] + ((frequency[i] - frequency[i - 1]) / (frequency[i] - frequency[i - 1] + (frequency[i])) * h), 2);
+                textBox2.Text = Convert.ToString(result);
+            }
+            Mediana(frequency, intmin, h, i);
+            MidleLineDeviation(frequency, intmin, h);
+        }
+
+        private void Mediana(int[] frequency, double[] intmin, double h, int i)
+        {
+            if (i != 0)
+            {
+                double result = intmin[i] + (0.5 * frequency.Sum() - frequency[i - 1]) / frequency[i] * h;
+                textBox3.Text = Convert.ToString(Math.Round(result, 2));
+            }
+            else
+            {
+                double result = intmin[i] + (0.5 * frequency.Sum()) / frequency[i] * h;
+                textBox3.Text = Convert.ToString(Math.Round(result, 2));
+            }
+        }
+
+        private void MidleLineDeviation(int[] frequency, double[] intmin, double h)
+        {
+            double[] numerator = new double[frequency.Length];
+            double sum = 0;
+            for (int i = 0; i < numerator.Length; i++)
+                numerator[i] = Math.Abs((2 * intmin[i] + h) / 2 - Convert.ToDouble(textBox1.Text));
+            for (int i = 0; i < numerator.Length; i++)
+            {
+                sum += numerator[i] * frequency[i];
+            }
+            textBox9.Text = Convert.ToString(Math.Round(sum / numerator.Length, 2));
+            Range();
+            Dispersion(frequency, intmin, h);
         }
 
         private void IntervalsGraphic(string[] intervals, int[] frequency, double[] allnamssorted)
@@ -275,59 +304,44 @@ namespace WindowsFormsApp4
                 Labels = intrvls
             });
 
-            LineSeries values = new LineSeries();
+            ColumnSeries values = new ColumnSeries();
             values.Title = "Частота";
             values.Values = frq;
             series.Add(values);
 
             cartesianChart2.Series = series;
-            MidleLineDeviation(frequency, allnamssorted);
-        }
 
-        private void MidleLineDeviation(int[] frequency, double[] allnumssorted)
-        {
-            double[] numerator = new double[allnumssorted.Length];
-            double sum = 0;
-            int k = 0, l = 0, j = 0;
-            for (int i = 0; i < numerator.Length; i++)
-                numerator[i] = Math.Abs(allnumssorted[i] - Convert.ToDouble(textBox1.Text));
-            for (int i = 0; i < numerator.Length; i++)
+            LiveCharts.SeriesCollection series1 = new LiveCharts.SeriesCollection();
+            cartesianChart1.AxisX.Clear();
+            cartesianChart1.AxisY.Clear();
+            cartesianChart1.AxisX.Add(new LiveCharts.Wpf.Axis()
             {
-                if (k >= l)
-                {
-                    l += frequency[j];
-                    j++;
-                }
-                sum += numerator[i] * frequency[j - 1];
-                k++;
-            }
-            textBox9.Text = Convert.ToString(Math.Round(sum / numerator.Length, 2));
-            Range();
-            Dispersion(allnumssorted, frequency);
+                Title = "Интервалы",
+                Labels = intrvls
+            });
+            LineSeries values1 = new LineSeries();
+            values1.Title = "Частота";
+            values1.Values = frq;
+            series1.Add(values1);
+
+            cartesianChart1.Series = series1;
         }
 
         private void Range()
         {
             textBox10.Text = Convert.ToString(Convert.ToDouble(textBox5.Text) - Convert.ToDouble(textBox6.Text));
         }
-        private void Dispersion(double[] allnumssorted, int[] frequency)
+        private void Dispersion(int[] frequency, double[] intmin, double h)
         {
-            int k = 0, l = 0, j = 0;
             double sum = 0;
-            for (int i = 0; i < allnumssorted.Length; i++)
+            for (int i = 0; i < frequency.Length; i++)
             {
-                if (k >= l)
-                {
-                    l += frequency[j];
-                    j++;
-                }
-                sum += Math.Pow(allnumssorted[i] - Convert.ToDouble(textBox1.Text), 2) * frequency[j - 1];
-                k++;
+                sum += Math.Pow((2 * intmin[i] + h) / 2 - Convert.ToDouble(textBox1.Text), 2) * frequency[i];
             }
-            textBox11.Text = Convert.ToString(Math.Round(sum / allnumssorted.Length, 2));
+            textBox11.Text = Convert.ToString(Math.Round(sum / frequency.Length, 2));
             MidleSquereDiviation();
-            CoefAssim(allnumssorted, frequency);
-            Ekscess(allnumssorted, frequency);
+            CoefAssim(frequency, intmin, h);
+            Ekscess(frequency, intmin, h);
         }
         private void MidleSquereDiviation()
         {
@@ -339,24 +353,17 @@ namespace WindowsFormsApp4
         {
             textBox13.Text = Convert.ToString(Math.Round(Convert.ToDouble(textBox12.Text) / Convert.ToDouble(textBox1.Text), 2));
         }
-        private void CoefAssim(double[] allnumssorted, int[] frequency)
+        private void CoefAssim(int[] frequency, double[] intmin, double h)
         {
-            int k = 0, l = 0, j = 0;
             double sum = 0;
-            for (int i = 0; i < allnumssorted.Length; i++)
+            for (int i = 0; i < frequency.Length; i++)
             {
-                if (k >= l)
-                {
-                    l += frequency[j];
-                    j++;
-                }
-                sum += Math.Pow(allnumssorted[i] - Convert.ToDouble(textBox1.Text), 3) * frequency[j - 1];
-                k++;
+                sum += Math.Pow((2 * intmin[i] + h / 2) - Convert.ToDouble(textBox1.Text), 3) * frequency[i] / frequency.Sum();
             }
             sum = sum / Math.Pow(Convert.ToDouble(textBox12.Text), 3);
             textBox14.Text = Convert.ToString(Math.Round(sum, 2));
             AssimText();
-            SushAssim(allnumssorted.Length);
+            SushAssim(frequency.Length);
         }
 
 
@@ -385,24 +392,24 @@ namespace WindowsFormsApp4
                 label20.Text = "Асимметрия несущественна";
         }
 
-        private void Ekscess(double[] allnumssorted, int[] frequency)
+        private void Ekscess(int[] frequency, double[] intmin, double h)
         {
             int k = 0, l = 0, j = 0;
             double sum = 0;
-            for (int i = 0; i < allnumssorted.Length; i++)
+            for (int i = 0; i < frequency.Length; i++)
             {
                 if (k >= l)
                 {
                     l += frequency[j];
                     j++;
                 }
-                sum += Math.Pow(allnumssorted[i] - Convert.ToDouble(textBox1.Text), 4) * frequency[j - 1];
+                sum += Math.Pow((2 * intmin[i] + h) / 2 - Convert.ToDouble(textBox1.Text), 4) * frequency[i] / frequency.Sum();
                 k++;
             }
-            sum = sum / Math.Pow(Convert.ToDouble(textBox12.Text), 4);
+            sum = sum / Math.Pow(Convert.ToDouble(textBox12.Text), 4) - 3;
             textBox17.Text = Convert.ToString(Math.Round(sum, 2));
             EkscessText();
-            SushEkscess(allnumssorted.Length);
+            SushEkscess(frequency.Length);
         }
 
         private void EkscessText()
@@ -431,35 +438,6 @@ namespace WindowsFormsApp4
             else label22.Text = "Эксцесс несущественный";
         }
 
-        private void Mediana()
-        {
-            int count = 0, k = 0;
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    if (dataGridView1.Rows[i].Cells[j].Value != null)
-                        count++;
-                }
-            double[] nums = new double[count];
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    if (dataGridView1.Rows[i].Cells[j].Value != null)
-                    {
-                        nums[k] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
-                        k++;
-                    }
-                }
-            Array.Sort(nums);
-            if (count % 2 == 1)
-            {
-                textBox3.Text = Convert.ToString(nums[count / 2]);
-            }
-            else
-            {
-                textBox3.Text = Convert.ToString((nums[count / 2 - 1] + nums[count / 2]) / 2);
-            }
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
